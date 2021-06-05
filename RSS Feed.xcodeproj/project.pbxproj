@@ -3,13 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		23A6486A266BCFB400DAA014 /* FeedListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A64869266BCFB400DAA014 /* FeedListModel.swift */; };
+		23A6486C266BCFEF00DAA014 /* FeedListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A6486B266BCFEF00DAA014 /* FeedListTableViewCell.swift */; };
 		23C29441266BCDDE00C07393 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C29440266BCDDE00C07393 /* AppDelegate.swift */; };
 		23C29443266BCDDE00C07393 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C29442266BCDDE00C07393 /* SceneDelegate.swift */; };
-		23C29445266BCDDE00C07393 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C29444266BCDDE00C07393 /* ViewController.swift */; };
+		23C29445266BCDDE00C07393 /* FeedListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C29444266BCDDE00C07393 /* FeedListViewController.swift */; };
 		23C29448266BCDDE00C07393 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23C29446266BCDDE00C07393 /* Main.storyboard */; };
 		23C2944A266BCDE100C07393 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23C29449266BCDE100C07393 /* Assets.xcassets */; };
 		23C2944D266BCDE100C07393 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 23C2944B266BCDE100C07393 /* LaunchScreen.storyboard */; };
@@ -19,10 +21,12 @@
 /* Begin PBXFileReference section */
 		008A4D1153D162671AAAB589 /* Pods-RSS Feed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RSS Feed.release.xcconfig"; path = "Target Support Files/Pods-RSS Feed/Pods-RSS Feed.release.xcconfig"; sourceTree = "<group>"; };
 		0747FEB6841D94A1228B22DB /* Pods-RSS Feed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RSS Feed.debug.xcconfig"; path = "Target Support Files/Pods-RSS Feed/Pods-RSS Feed.debug.xcconfig"; sourceTree = "<group>"; };
+		23A64869266BCFB400DAA014 /* FeedListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListModel.swift; sourceTree = "<group>"; };
+		23A6486B266BCFEF00DAA014 /* FeedListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListTableViewCell.swift; sourceTree = "<group>"; };
 		23C2943D266BCDDE00C07393 /* RSS Feed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RSS Feed.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		23C29440266BCDDE00C07393 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		23C29442266BCDDE00C07393 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		23C29444266BCDDE00C07393 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		23C29444266BCDDE00C07393 /* FeedListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListViewController.swift; sourceTree = "<group>"; };
 		23C29447266BCDDE00C07393 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		23C29449266BCDE100C07393 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		23C2944C266BCDE100C07393 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -42,6 +46,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		23A6486D266BD03600DAA014 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				23A64869266BCFB400DAA014 /* FeedListModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		23A6486E266BD03C00DAA014 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				23C29444266BCDDE00C07393 /* FeedListViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		23A6486F266BD04B00DAA014 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				23A6486B266BCFEF00DAA014 /* FeedListTableViewCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		23C29434266BCDDD00C07393 = {
 			isa = PBXGroup;
 			children = (
@@ -65,7 +93,9 @@
 			children = (
 				23C29440266BCDDE00C07393 /* AppDelegate.swift */,
 				23C29442266BCDDE00C07393 /* SceneDelegate.swift */,
-				23C29444266BCDDE00C07393 /* ViewController.swift */,
+				23A6486D266BD03600DAA014 /* Model */,
+				23A6486E266BD03C00DAA014 /* View Controllers */,
+				23A6486F266BD04B00DAA014 /* Views */,
 				23C29446266BCDDE00C07393 /* Main.storyboard */,
 				23C29449266BCDE100C07393 /* Assets.xcassets */,
 				23C2944B266BCDE100C07393 /* LaunchScreen.storyboard */,
@@ -88,7 +118,6 @@
 				0747FEB6841D94A1228B22DB /* Pods-RSS Feed.debug.xcconfig */,
 				008A4D1153D162671AAAB589 /* Pods-RSS Feed.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -206,9 +235,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				23C29445266BCDDE00C07393 /* ViewController.swift in Sources */,
+				23C29445266BCDDE00C07393 /* FeedListViewController.swift in Sources */,
+				23A6486C266BCFEF00DAA014 /* FeedListTableViewCell.swift in Sources */,
 				23C29441266BCDDE00C07393 /* AppDelegate.swift in Sources */,
 				23C29443266BCDDE00C07393 /* SceneDelegate.swift in Sources */,
+				23A6486A266BCFB400DAA014 /* FeedListModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
