@@ -73,6 +73,18 @@ extension FeedListViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let feedPostsVC: FeedPostsViewController =
+            self.storyboard!.instantiateViewController(withIdentifier: "FeedPostsViewController") as! FeedPostsViewController
+        
+        let feed = feedList[indexPath.row]
+        feedURL = URL(string: feed.url)!
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        self.present(feedPostsVC, animated: true, completion: nil)
+    }
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
           
           if editingStyle == .delete {
