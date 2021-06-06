@@ -27,18 +27,12 @@ class FeedPostsViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        feedTableView.delegate = self
-        feedTableView.dataSource = self
+        configureTableViews()
         
         parser = FeedParser(URL: feedURL)
         parseRSS()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-    }
-
     //MARK: Actions
     @IBAction func goBack(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -74,6 +68,12 @@ extension FeedPostsViewController {
 
 //MARK: - Table View
 extension FeedPostsViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    private func configureTableViews() {
+        feedTableView.delegate = self
+        feedTableView.dataSource = self
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return rssFeed?.items?.count ?? 0
     }

@@ -9,10 +9,12 @@ import UIKit
 
 class AddNewFeedViewController: UIViewController {
 
+    //MARK: Outlets
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var urlTextField: UITextField!
     @IBOutlet weak var addButton: UIButton!
     
+    //MARK: View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,13 +22,9 @@ class AddNewFeedViewController: UIViewController {
         
         configureTextFields()
         configureTapGesture()
-        
-        if ((nameTextField.text?.isEmpty) != nil) {
-            addButton.isUserInteractionEnabled = false
-            addButton.alpha = 0.6
-        }
     }
     
+    //MARK: Actions
     @IBAction func addFeed(_ sender: Any) {
         view.endEditing(true)
         feedList.append(FeedListModel(url: urlTextField.text!, title: nameTextField.text!))
@@ -60,6 +58,11 @@ extension AddNewFeedViewController: UITextFieldDelegate {
     private func configureTextFields() {
         nameTextField.delegate = self
         urlTextField.delegate = self
+        
+        if ((nameTextField.text?.isEmpty) != nil) {
+            addButton.isUserInteractionEnabled = false
+            addButton.alpha = 0.6
+        }
     }
     
     private func switchBasedNextTextField(_ textField: UITextField) {

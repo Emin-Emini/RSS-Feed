@@ -9,6 +9,7 @@ import UIKit
 
 class FeedPostsTableViewCell: UITableViewCell {
 
+    //MARK: Outlets
     @IBOutlet weak var feedImage: UIImageView!
     @IBOutlet weak var feedTitle: UILabel!
     @IBOutlet weak var feedDescription: UILabel!

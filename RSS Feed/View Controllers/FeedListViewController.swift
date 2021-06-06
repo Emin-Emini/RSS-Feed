@@ -27,10 +27,7 @@ class FeedListViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        feedListTableView.delegate = self
-        feedListTableView.dataSource = self
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(loadList), name: NSNotification.Name(rawValue: "loadList"), object: nil)
+        configureTableViews()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -49,6 +46,14 @@ extension FeedListViewController {
 
 //MARK: - Table View
 extension FeedListViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    private func configureTableViews() {
+        feedListTableView.delegate = self
+        feedListTableView.dataSource = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(loadList), name: NSNotification.Name(rawValue: "loadList"), object: nil)
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return feedList.count
     }
