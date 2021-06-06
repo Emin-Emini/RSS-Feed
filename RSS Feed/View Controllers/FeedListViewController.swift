@@ -7,19 +7,20 @@
 
 import UIKit
 
+//MARK: Properties
+var feedList = [
+    FeedListModel(url: "http://feeds.wired.com/wired/index", title: "Wired"),
+    FeedListModel(url: "https://www.buzzfeed.com/world.xml", title: "BuzzFeed"),
+    FeedListModel(url: "http://www.npr.org/rss/rss.php?id=1001", title: "NPR Topics: News"),
+    FeedListModel(url: "http://feeds.sciencedaily.com/sciencedaily", title: "ScienceDaily Headlines"),
+    FeedListModel(url: "https://www.buzzfeed.com/world.xml", title: "BuzzFeed")
+]
+
 class FeedListViewController: UIViewController {
 
     //MARK: Outlets
     @IBOutlet weak var feedListTableView: UITableView!
     
-    //MARK: Properties
-    var feedList = [
-        FeedListModel(url: "http://feeds.wired.com/wired/index", title: "Wired"),
-        FeedListModel(url: "https://www.buzzfeed.com/world.xml", title: "BuzzFeed"),
-        FeedListModel(url: "http://www.npr.org/rss/rss.php?id=1001", title: "NPR Topics: News"),
-        FeedListModel(url: "http://feeds.sciencedaily.com/sciencedaily", title: "ScienceDaily Headlines"),
-        FeedListModel(url: "https://www.buzzfeed.com/world.xml", title: "BuzzFeed")
-    ]
     
     //MARK: View Did Load
     override func viewDidLoad() {
@@ -28,33 +29,22 @@ class FeedListViewController: UIViewController {
         
         feedListTableView.delegate = self
         feedListTableView.dataSource = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(loadList), name: NSNotification.Name(rawValue: "loadList"), object: nil)
     }
     
-    //MARK: Actions
-    @IBAction func addNewFeed(_ sender: Any) {
-        let alert = UIAlertController(title: "Add New Feed", message: "Add new RSS Feed by filling fields below.", preferredStyle: .alert)
-
-        alert.addTextField { (textField) in
-            textField.placeholder = "Feed Name"
-        }
-        
-        alert.addTextField { (textField) in
-            textField.placeholder = "RSS URL"
-        }
-
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
-            let textFieldName = alert?.textFields![0]
-            let textFieldURL = alert?.textFields![1]// Force unwrapping because we know it exists.
-            //print("Text field: \(textField!.text)")
-            
-            self.feedList.append(FeedListModel(url: (textFieldURL?.text)!, title: (textFieldName?.text)!))
-            self.feedListTableView.reloadData()
-        }))
-
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        feedListTableView.reloadData()
     }
 
+}
+
+//MARK: - Functions
+extension FeedListViewController {
+    @objc func loadList(notification: NSNotification){
+        self.feedListTableView.reloadData()
+    }
 }
 
 //MARK: - Table View
