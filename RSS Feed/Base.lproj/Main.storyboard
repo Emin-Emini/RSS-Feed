@@ -92,7 +92,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="feedImage" destination="d0e-qr-8YD" id="VjC-Sq-4Mr"/>
-                                            <outlet property="feedTitle" destination="Ond-tn-8ho" id="dfI-4b-nWB"/>
+                                            <outlet property="feedName" destination="Ond-tn-8ho" id="dfI-4b-nWB"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

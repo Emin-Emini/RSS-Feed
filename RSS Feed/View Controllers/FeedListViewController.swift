@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FeedKit
 import CoreData
 
 class FeedListViewController: UIViewController {
@@ -16,6 +17,8 @@ class FeedListViewController: UIViewController {
     
     //MARK: Properties
     var feedList = [FeedList]()
+    
+    var rssFeed: RSSFeed?
     
     //MARK: View Did Load
     override func viewDidLoad() {
@@ -41,6 +44,25 @@ extension FeedListViewController {
         fetchFromCoreData()
         checkIfListIsEmpty()
         self.feedListTableView.reloadData()
+    }
+    
+    func parseRSS(parser: FeedParser) {
+        parser.parseAsync(queue: DispatchQueue.global(qos: .userInitiated)) { (result) in
+            // Do your thing, then back to the Main thread
+            switch result {
+            case .success(let feed):
+                // Grab the parsed feed directly as an optional rss feed object
+                self.rssFeed = feed.rssFeed
+                
+                // Then back to the Main thread to update the UI.
+                DispatchQueue.main.async {
+                    
+                }
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     private func checkIfListIsEmpty() {
@@ -70,7 +92,23 @@ extension FeedListViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "feedListCell", for: indexPath) as! FeedListTableViewCell
         
         let feed = feedList[indexPath.row]
-        cell.feedTitle.text = (feed.value(forKeyPath: "feedName") as! String)
+        cell.feedName.text = (feed.value(forKeyPath: "feedName") as! String)
+        let feedURL = (feed.value(forKeyPath: "feedUrl") as! String)
+        print(feedURL)
+        
+        //Assign Image from parsed RSS Feed
+        parseRSS(parser: FeedParser(URL: URL(string: feedURL)!))
+        
+        print(rssFeed?.image)
+        
+        guard let imageURL = URL(string: (rssFeed?.image?.url) ?? "") else { return cell }
+        DispatchQueue.global().async {
+            guard let imageData = try? Data(contentsOf: imageURL) else { return }
+            let image = UIImage(data: imageData)
+            DispatchQueue.main.async {
+                cell.feedImage.image = image
+            }
+        }
         
         return cell
     }
