@@ -43,29 +43,6 @@ extension FeedListViewController {
         self.feedListTableView.reloadData()
     }
     
-    //Fill some RSS Feeds in Core Data (This function will remove all of the previous data, and will add new data)
-    private func loadSomeData() {
-        resetCoreData(in: "FeedList")
-        saveToCoreData(feedUrl: "http://feeds.wired.com/wired/index", feedName: "Wired")
-        saveToCoreData(feedUrl: "https://www.buzzfeed.com/world.xml", feedName: "BuzzFeed")
-        saveToCoreData(feedUrl: "http://www.npr.org/rss/rss.php?id=1001", feedName: "NPR Topics: News")
-        saveToCoreData(feedUrl: "http://feeds.sciencedaily.com/sciencedaily", feedName: "ScienceDaily Headlines")
-    }
-    
-    //This function will remove all of the data in an Entity of Core Data
-    private func resetCoreData(in entity: String) {
-        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
-        do {
-            try context.execute(deleteRequest)
-            try context.save()
-        }
-        catch {
-            print ("There was an error")
-        }
-    }
-    
     private func checkIfListIsEmpty() {
         if feedList.isEmpty {
             emptyListIndicatorView.isHidden = false
@@ -131,7 +108,6 @@ extension FeedListViewController: UITableViewDataSource, UITableViewDelegate {
 //MARK: - Core Data
 extension FeedListViewController: FeedProtocol {
     func saveToCoreData(feedUrl: String, feedName: String) {
-        
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
         }
@@ -174,6 +150,29 @@ extension FeedListViewController: FeedProtocol {
             print("Could not fetch. \(error), \(error.userInfo)")
         }
 
+    }
+    
+    //This function will remove all of the data in an Entity of Core Data
+    private func resetCoreData(in entity: String) {
+        let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
+        do {
+            try context.execute(deleteRequest)
+            try context.save()
+        }
+        catch {
+            print ("There was an error")
+        }
+    }
+    
+    //Fill some RSS Feeds in Core Data (This function will remove all of the previous data, and will add new data)
+    private func loadSomeData() {
+        resetCoreData(in: "FeedList")
+        saveToCoreData(feedUrl: "http://feeds.wired.com/wired/index", feedName: "Wired")
+        saveToCoreData(feedUrl: "https://www.buzzfeed.com/world.xml", feedName: "BuzzFeed")
+        saveToCoreData(feedUrl: "http://www.npr.org/rss/rss.php?id=1001", feedName: "NPR Topics: News")
+        saveToCoreData(feedUrl: "http://feeds.sciencedaily.com/sciencedaily", feedName: "ScienceDaily Headlines")
     }
 }
 
