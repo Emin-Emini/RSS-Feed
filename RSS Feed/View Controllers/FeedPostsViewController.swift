@@ -8,19 +8,19 @@
 import UIKit
 import FeedKit
 
-var feedURL = URL(string: "https://www.buzzfeed.com/world.xml")!
-let parser = FeedParser(URL: feedURL)
+//var feedURL = URL(string: "https://www.buzzfeed.com/world.xml")!
+//let parser = FeedParser(URL: feedURL)
 
 class FeedPostsViewController: UIViewController {
 
     //MARK: Outlets
-    @IBOutlet weak var feedTitleLabel: UILabel!
-    @IBOutlet weak var feedDescriptionLabel: UILabel!
-    @IBOutlet weak var feedTableView: UITableView!
+    @IBOutlet private weak var feedTitleLabel: UILabel!
+    @IBOutlet private weak var feedDescriptionLabel: UILabel!
+    @IBOutlet private weak var feedTableView: UITableView!
     
     //MARK: Properties
-    var parser = FeedParser(URL: feedURL)
-    var rssFeed: RSSFeed?
+    private var rssFeed: RSSFeed?
+    var parser: FeedParser!
     
     //MARK: View Did Load
     override func viewDidLoad() {
@@ -29,12 +29,11 @@ class FeedPostsViewController: UIViewController {
         
         configureTableViews()
         
-        parser = FeedParser(URL: feedURL)
         parseRSS()
     }
     
     //MARK: Actions
-    @IBAction func goBack(_ sender: Any) {
+    @IBAction private func goBack(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
 
@@ -43,7 +42,7 @@ class FeedPostsViewController: UIViewController {
 
 //MARK: - Functions
 extension FeedPostsViewController {
-    func parseRSS() {
+    private func parseRSS() {
         parser.parseAsync(queue: DispatchQueue.global(qos: .userInitiated)) { (result) in
             // Do your thing, then back to the Main thread
             switch result {
@@ -92,7 +91,6 @@ extension FeedPostsViewController: UITableViewDataSource, UITableViewDelegate {
             guard let imageData = try? Data(contentsOf: imageURL) else { return }
             let image = UIImage(data: imageData)
             DispatchQueue.main.async {
-                
                 cell.feedImage.image = image
             }
         }

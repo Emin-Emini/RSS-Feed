@@ -6,13 +6,14 @@
 //
 
 import UIKit
+import FeedKit
 import CoreData
 
 class FeedListViewController: UIViewController {
 
     //MARK: Outlets
-    @IBOutlet weak var feedListTableView: UITableView!
-    @IBOutlet weak var emptyListIndicatorView: UIView!
+    @IBOutlet private weak var feedListTableView: UITableView!
+    @IBOutlet private weak var emptyListIndicatorView: UIView!
     
     //MARK: Properties
     var feedList = [FeedList]()
@@ -32,7 +33,15 @@ class FeedListViewController: UIViewController {
         feedListTableView.reloadData()
         checkIfListIsEmpty()
     }
-
+    
+    @IBAction private func addNewFeedList(_ sender: Any) {
+        if let addFeedViewController = storyboard?.instantiateViewController(identifier: "AddNewFeedViewController") as? AddNewFeedViewController {
+            addFeedViewController.actionDelegate = self
+            addFeedViewController.modalPresentationStyle = .overCurrentContext
+            present(addFeedViewController, animated: true)
+        }
+    }
+    
 }
 
 //MARK: - Functions
@@ -90,7 +99,9 @@ extension FeedListViewController: UITableViewDataSource, UITableViewDelegate {
             self.storyboard!.instantiateViewController(withIdentifier: "FeedPostsViewController") as! FeedPostsViewController
         
         let feed = feedList[indexPath.row]
-        feedURL = URL(string: feed.feedUrl!)!
+        if let feedURL = URL.init(string: feed.feedUrl ?? "") {
+            feedPostsVC.parser = FeedParser(URL: feedURL)
+        }
         
         tableView.deselectRow(at: indexPath, animated: true)
         
@@ -200,4 +211,34 @@ extension FeedListViewController: FeedProtocol {
 
 protocol FeedProtocol: AnyObject {
     func saveToCoreData(feedUrl: String, feedName: String, imageUrl: String)
+}
+
+extension FeedListViewController: AddNewFeedViewControllerDelegate {
+    
+    func saveFeed(_ feedURL: String, feedName: String) {
+        if let url = URL.init(string: feedURL) {
+            parseRSS(feedURL: url, feedName: feedName)
+        }
+        
+        feedListTableView.reloadData()
+    }
+    
+    private func parseRSS(feedURL: URL, feedName: String) {
+        FeedParser(URL: feedURL).parseAsync(queue: DispatchQueue.global(qos: .userInitiated)) { (result) in
+            // Do your thing, then back to the Main thread
+            switch result {
+            case .success(let feed):
+                DispatchQueue.main.async {
+                    if let rssFeed = feed.rssFeed {
+                        self.saveToCoreData(feedUrl: rssFeed.link ?? "", feedName: feedName, imageUrl: rssFeed.image?.url ?? "")
+                        self.checkIfListIsEmpty()
+                        self.feedListTableView.reloadData()
+                    }
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+  
 }
