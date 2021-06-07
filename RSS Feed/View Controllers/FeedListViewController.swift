@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import FeedKit
 import CoreData
 
 class FeedListViewController: UIViewController {
@@ -17,8 +16,6 @@ class FeedListViewController: UIViewController {
     
     //MARK: Properties
     var feedList = [FeedList]()
-    
-    var rssFeed: RSSFeed?
     
     //MARK: View Did Load
     override func viewDidLoad() {
@@ -44,25 +41,6 @@ extension FeedListViewController {
         fetchFromCoreData()
         checkIfListIsEmpty()
         self.feedListTableView.reloadData()
-    }
-    
-    func parseRSS(parser: FeedParser) {
-        parser.parseAsync(queue: DispatchQueue.global(qos: .userInitiated)) { (result) in
-            // Do your thing, then back to the Main thread
-            switch result {
-            case .success(let feed):
-                // Grab the parsed feed directly as an optional rss feed object
-                self.rssFeed = feed.rssFeed
-                
-                // Then back to the Main thread to update the UI.
-                DispatchQueue.main.async {
-                    
-                }
-                
-            case .failure(let error):
-                print(error)
-            }
-        }
     }
     
     private func checkIfListIsEmpty() {
@@ -92,16 +70,10 @@ extension FeedListViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "feedListCell", for: indexPath) as! FeedListTableViewCell
         
         let feed = feedList[indexPath.row]
-        cell.feedName.text = (feed.value(forKeyPath: "feedName") as! String)
-        let feedURL = (feed.value(forKeyPath: "feedUrl") as! String)
-        print(feedURL)
+        cell.feedName.text = feed.feedName
         
         //Assign Image from parsed RSS Feed
-        parseRSS(parser: FeedParser(URL: URL(string: feedURL)!))
-        
-        print(rssFeed?.image)
-        
-        guard let imageURL = URL(string: (rssFeed?.image?.url) ?? "") else { return cell }
+        guard let imageURL = URL(string: feed.imageUrl ?? "") else { return cell }
         DispatchQueue.global().async {
             guard let imageData = try? Data(contentsOf: imageURL) else { return }
             let image = UIImage(data: imageData)
@@ -145,7 +117,7 @@ extension FeedListViewController: UITableViewDataSource, UITableViewDelegate {
 
 //MARK: - Core Data
 extension FeedListViewController: FeedProtocol {
-    func saveToCoreData(feedUrl: String, feedName: String) {
+    func saveToCoreData(feedUrl: String, feedName: String, imageUrl: String) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
             return
         }
@@ -160,6 +132,7 @@ extension FeedListViewController: FeedProtocol {
         // 3
         newValue.setValue(feedUrl, forKeyPath: "feedUrl")
         newValue.setValue(feedName, forKeyPath: "feedName")
+        newValue.setValue(imageUrl, forKeyPath: "imageUrl")
         
         // 4
         do {
@@ -207,13 +180,24 @@ extension FeedListViewController: FeedProtocol {
     //Fill some RSS Feeds in Core Data (This function will remove all of the previous data, and will add new data)
     private func loadSomeData() {
         resetCoreData(in: "FeedList")
-        saveToCoreData(feedUrl: "http://feeds.wired.com/wired/index", feedName: "Wired")
-        saveToCoreData(feedUrl: "https://www.buzzfeed.com/world.xml", feedName: "BuzzFeed")
-        saveToCoreData(feedUrl: "http://www.npr.org/rss/rss.php?id=1001", feedName: "NPR Topics: News")
-        saveToCoreData(feedUrl: "http://feeds.sciencedaily.com/sciencedaily", feedName: "ScienceDaily Headlines")
+        saveToCoreData(feedUrl: "http://feeds.wired.com/wired/index",
+                       feedName: "Wired",
+                       imageUrl: "")
+        
+        saveToCoreData(feedUrl: "https://www.buzzfeed.com/world.xml",
+                       feedName: "BuzzFeed",
+                       imageUrl: "https://webappstatic.buzzfeed.com/static/images/public/rss/logo-news.png")
+        
+        saveToCoreData(feedUrl: "http://www.npr.org/rss/rss.php?id=1001",
+                       feedName: "NPR Topics: News",
+                       imageUrl: "https://media.npr.org/images/podcasts/primary/npr_generic_image_300.jpg?s=200")
+        
+        saveToCoreData(feedUrl: "http://feeds.sciencedaily.com/sciencedaily",
+                       feedName: "ScienceDaily Headlines",
+                       imageUrl: "https://www.sciencedaily.com/images/scidaily-logo-rss.png")
     }
 }
 
-protocol FeedProtocol: class {
-    func saveToCoreData(feedUrl: String, feedName: String)
+protocol FeedProtocol: AnyObject {
+    func saveToCoreData(feedUrl: String, feedName: String, imageUrl: String)
 }

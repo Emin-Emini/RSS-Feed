@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FeedKit
 
 class AddNewFeedViewController: UIViewController {
 
@@ -13,6 +14,10 @@ class AddNewFeedViewController: UIViewController {
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var urlTextField: UITextField!
     @IBOutlet weak var addButton: UIButton!
+    
+    //MARK: Properties
+    var parser = FeedParser(URL: feedURL)
+    var rssFeed: RSSFeed?
     
     //MARK: View Did Load
     override func viewDidLoad() {
@@ -27,8 +32,15 @@ class AddNewFeedViewController: UIViewController {
     //MARK: Actions
     @IBAction func addFeed(_ sender: Any) {
         view.endEditing(true)
+        parser = FeedParser(URL: URL(string: urlTextField.text!)!)
+        print(urlTextField.text ?? "Nothing")
+        DispatchQueue.main.async {
+            self.parseRSS()
+        }
+        print(rssFeed?.link ?? "Nothing")
+        
         let feedListVC = FeedListViewController()
-        feedListVC.saveToCoreData(feedUrl: urlTextField.text!, feedName: nameTextField.text!)
+        feedListVC.saveToCoreData(feedUrl: urlTextField.text!, feedName: nameTextField.text!, imageUrl: rssFeed?.image?.url ?? "")
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadList"), object: nil)
         self.dismiss(animated: true, completion: nil)
     }
@@ -51,6 +63,19 @@ extension AddNewFeedViewController {
     //OBJC Function to end editing and hide keyboard
     @objc func handleTap() {
         view.endEditing(true)
+    }
+    
+    func parseRSS() {
+        parser.parseAsync(queue: DispatchQueue.global(qos: .userInitiated)) { (result) in
+            // Do your thing, then back to the Main thread
+            switch result {
+            case .success(let feed):
+                // Grab the parsed feed directly as an optional rss feed object
+                self.rssFeed = feed.rssFeed
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }
 

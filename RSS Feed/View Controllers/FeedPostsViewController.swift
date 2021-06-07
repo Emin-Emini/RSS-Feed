@@ -87,7 +87,7 @@ extension FeedPostsViewController: UITableViewDataSource, UITableViewDelegate {
         cell.feedDescription.text = item?.description
         
         //Assign Image from parsed RSS Feed
-        guard let imageURL = URL(string: (item?.media?.mediaThumbnails?.first?.attributes?.url) as? String ?? "") else { return cell }
+        guard let imageURL = URL(string: (item?.media?.mediaThumbnails?.first?.attributes?.url) ?? "") else { return cell }
         DispatchQueue.global().async {
             guard let imageData = try? Data(contentsOf: imageURL) else { return }
             let image = UIImage(data: imageData)
