@@ -27,7 +27,8 @@ class AddNewFeedViewController: UIViewController {
     //MARK: Actions
     @IBAction func addFeed(_ sender: Any) {
         view.endEditing(true)
-        feedList.append(FeedListModel(url: urlTextField.text!, title: nameTextField.text!))
+        let feedListVC = FeedListViewController()
+        feedListVC.saveToCoreData(feedUrl: urlTextField.text!, feedName: nameTextField.text!)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "loadList"), object: nil)
         self.dismiss(animated: true, completion: nil)
     }
@@ -42,11 +43,12 @@ class AddNewFeedViewController: UIViewController {
 
 //MARK: Functions
 extension AddNewFeedViewController {
+    //Configuration for screen Tap Gesture
     private func configureTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(AddNewFeedViewController.handleTap))
         view.addGestureRecognizer(tapGesture )
     }
-    
+    //OBJC Function to end editing and hide keyboard
     @objc func handleTap() {
         view.endEditing(true)
     }
@@ -55,16 +57,19 @@ extension AddNewFeedViewController {
 //MARK: Text Field
 extension AddNewFeedViewController: UITextFieldDelegate {
     
+    //Text Fields Configuration
     private func configureTextFields() {
         nameTextField.delegate = self
         urlTextField.delegate = self
         
-        if ((nameTextField.text?.isEmpty) != nil) {
+        //Make button disabled while textfields are empty
+        if (nameTextField.text != nil) && (urlTextField.text != nil) {
             addButton.isUserInteractionEnabled = false
             addButton.alpha = 0.6
         }
     }
     
+    //Go to next TextField after pressing return
     private func switchBasedNextTextField(_ textField: UITextField) {
         switch textField {
         case self.nameTextField:
@@ -82,6 +87,7 @@ extension AddNewFeedViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+        //Make button disabled while Text Fields are empty and enable once user press return after filling both fields.
         if (nameTextField.text != nil) && (urlTextField.text != nil) {
             addButton.isUserInteractionEnabled = true
             addButton.alpha = 1.0

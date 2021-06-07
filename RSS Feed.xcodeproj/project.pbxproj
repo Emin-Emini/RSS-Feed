@@ -12,6 +12,7 @@
 		23A64871266BDBB600DAA014 /* FeedPostsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A64870266BDBB500DAA014 /* FeedPostsTableViewCell.swift */; };
 		23A64873266BDBC500DAA014 /* FeedPostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A64872266BDBC500DAA014 /* FeedPostsViewController.swift */; };
 		23A64875266C1BE600DAA014 /* AddNewFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A64874266C1BE600DAA014 /* AddNewFeedViewController.swift */; };
+		23A64878266E2FF400DAA014 /* FeedList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 23A64876266E2FF400DAA014 /* FeedList.xcdatamodeld */; };
 		23C29441266BCDDE00C07393 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C29440266BCDDE00C07393 /* AppDelegate.swift */; };
 		23C29443266BCDDE00C07393 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C29442266BCDDE00C07393 /* SceneDelegate.swift */; };
 		23C29445266BCDDE00C07393 /* FeedListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C29444266BCDDE00C07393 /* FeedListViewController.swift */; };
@@ -29,6 +30,7 @@
 		23A64870266BDBB500DAA014 /* FeedPostsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPostsTableViewCell.swift; sourceTree = "<group>"; };
 		23A64872266BDBC500DAA014 /* FeedPostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPostsViewController.swift; sourceTree = "<group>"; };
 		23A64874266C1BE600DAA014 /* AddNewFeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewFeedViewController.swift; sourceTree = "<group>"; };
+		23A64877266E2FF400DAA014 /* FeedList.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FeedList.xcdatamodel; sourceTree = "<group>"; };
 		23C2943D266BCDDE00C07393 /* RSS Feed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RSS Feed.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		23C29440266BCDDE00C07393 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		23C29442266BCDDE00C07393 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				23C29446266BCDDE00C07393 /* Main.storyboard */,
 				23C29449266BCDE100C07393 /* Assets.xcassets */,
 				23C2944B266BCDE100C07393 /* LaunchScreen.storyboard */,
+				23A64876266E2FF400DAA014 /* FeedList.xcdatamodeld */,
 				23C2944E266BCDE100C07393 /* Info.plist */,
 			);
 			path = "RSS Feed";
@@ -244,6 +247,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23A64878266E2FF400DAA014 /* FeedList.xcdatamodeld in Sources */,
 				23C29445266BCDDE00C07393 /* FeedListViewController.swift in Sources */,
 				23A64871266BDBB600DAA014 /* FeedPostsTableViewCell.swift in Sources */,
 				23A6486C266BCFEF00DAA014 /* FeedListTableViewCell.swift in Sources */,
@@ -455,6 +459,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		23A64876266E2FF400DAA014 /* FeedList.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				23A64877266E2FF400DAA014 /* FeedList.xcdatamodel */,
+			);
+			currentVersion = 23A64877266E2FF400DAA014 /* FeedList.xcdatamodel */;
+			path = FeedList.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 23C29435266BCDDD00C07393 /* Project object */;
 }
