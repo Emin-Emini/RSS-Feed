@@ -12,6 +12,7 @@ class FeedListViewController: UIViewController {
 
     //MARK: Outlets
     @IBOutlet weak var feedListTableView: UITableView!
+    @IBOutlet weak var emptyListIndicatorView: UIView!
     
     //MARK: Properties
     var feedList = [FeedList]()
@@ -29,6 +30,7 @@ class FeedListViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         feedListTableView.reloadData()
+        checkIfListIsEmpty()
     }
 
 }
@@ -37,6 +39,7 @@ class FeedListViewController: UIViewController {
 extension FeedListViewController {
     @objc func loadList(notification: NSNotification){
         fetchFromCoreData()
+        checkIfListIsEmpty()
         self.feedListTableView.reloadData()
     }
     
@@ -60,6 +63,14 @@ extension FeedListViewController {
         }
         catch {
             print ("There was an error")
+        }
+    }
+    
+    private func checkIfListIsEmpty() {
+        if feedList.isEmpty {
+            emptyListIndicatorView.isHidden = false
+        } else {
+            emptyListIndicatorView.isHidden = true
         }
     }
 }
@@ -108,6 +119,9 @@ extension FeedListViewController: UITableViewDataSource, UITableViewDelegate {
             try managedContext.save()
         } catch _ {
         }
+        
+        checkIfListIsEmpty()
+        
         tableView.deleteRows(at: [indexPath], with: .fade)
     }
     
