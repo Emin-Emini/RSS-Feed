@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		23A6486A266BCFB400DAA014 /* FeedListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A64869266BCFB400DAA014 /* FeedListModel.swift */; };
 		23A6486C266BCFEF00DAA014 /* FeedListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A6486B266BCFEF00DAA014 /* FeedListTableViewCell.swift */; };
 		23A64871266BDBB600DAA014 /* FeedPostsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A64870266BDBB500DAA014 /* FeedPostsTableViewCell.swift */; };
 		23A64873266BDBC500DAA014 /* FeedPostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23A64872266BDBC500DAA014 /* FeedPostsViewController.swift */; };
@@ -25,7 +24,6 @@
 /* Begin PBXFileReference section */
 		008A4D1153D162671AAAB589 /* Pods-RSS Feed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RSS Feed.release.xcconfig"; path = "Target Support Files/Pods-RSS Feed/Pods-RSS Feed.release.xcconfig"; sourceTree = "<group>"; };
 		0747FEB6841D94A1228B22DB /* Pods-RSS Feed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RSS Feed.debug.xcconfig"; path = "Target Support Files/Pods-RSS Feed/Pods-RSS Feed.debug.xcconfig"; sourceTree = "<group>"; };
-		23A64869266BCFB400DAA014 /* FeedListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListModel.swift; sourceTree = "<group>"; };
 		23A6486B266BCFEF00DAA014 /* FeedListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedListTableViewCell.swift; sourceTree = "<group>"; };
 		23A64870266BDBB500DAA014 /* FeedPostsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPostsTableViewCell.swift; sourceTree = "<group>"; };
 		23A64872266BDBC500DAA014 /* FeedPostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPostsViewController.swift; sourceTree = "<group>"; };
@@ -54,14 +52,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		23A6486D266BD03600DAA014 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				23A64869266BCFB400DAA014 /* FeedListModel.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		23A6486E266BD03C00DAA014 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -104,7 +94,6 @@
 			children = (
 				23C29440266BCDDE00C07393 /* AppDelegate.swift */,
 				23C29442266BCDDE00C07393 /* SceneDelegate.swift */,
-				23A6486D266BD03600DAA014 /* Model */,
 				23A6486F266BD04B00DAA014 /* Views */,
 				23A6486E266BD03C00DAA014 /* View Controllers */,
 				23C29446266BCDDE00C07393 /* Main.storyboard */,
@@ -253,7 +242,6 @@
 				23A6486C266BCFEF00DAA014 /* FeedListTableViewCell.swift in Sources */,
 				23C29441266BCDDE00C07393 /* AppDelegate.swift in Sources */,
 				23C29443266BCDDE00C07393 /* SceneDelegate.swift in Sources */,
-				23A6486A266BCFB400DAA014 /* FeedListModel.swift in Sources */,
 				23A64873266BDBC500DAA014 /* FeedPostsViewController.swift in Sources */,
 				23A64875266C1BE600DAA014 /* AddNewFeedViewController.swift in Sources */,
 			);
@@ -413,7 +401,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "EminEmini.RSS-Feed";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -433,7 +421,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "EminEmini.RSS-Feed";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

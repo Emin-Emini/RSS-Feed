@@ -17,13 +17,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subscribed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ufZ-Og-CSb">
-                                <rect key="frame" x="24" y="76" width="124.5" height="29"/>
+                                <rect key="frame" x="24" y="76" width="366" height="29"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your subscribed feed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p39-Ni-68i">
-                                <rect key="frame" x="24" y="105" width="146" height="18"/>
+                                <rect key="frame" x="24" y="105" width="366" height="18"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" systemColor="systemGrayColor"/>
                                 <nil key="highlightedColor"/>
@@ -217,11 +217,13 @@
                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="f05-eT-gMA" firstAttribute="bottom" secondItem="lGz-yK-Bdl" secondAttribute="bottom" constant="16" id="2Us-d7-cDN"/>
-                            <constraint firstItem="ufZ-Og-CSb" firstAttribute="leading" secondItem="p39-Ni-68i" secondAttribute="leading" id="B8Z-mG-v1D"/>
                             <constraint firstItem="f05-eT-gMA" firstAttribute="trailing" secondItem="lGz-yK-Bdl" secondAttribute="trailing" constant="32" id="LD4-Zl-pHO"/>
+                            <constraint firstItem="f05-eT-gMA" firstAttribute="trailing" secondItem="ufZ-Og-CSb" secondAttribute="trailing" constant="24" id="PK7-8h-FwI"/>
+                            <constraint firstItem="p39-Ni-68i" firstAttribute="trailing" secondItem="ufZ-Og-CSb" secondAttribute="trailing" id="QUt-IG-3ge"/>
                             <constraint firstItem="R6z-kg-MSF" firstAttribute="bottom" secondItem="8o4-Q6-QHl" secondAttribute="bottom" id="RBr-c0-pDg"/>
                             <constraint firstItem="mqJ-U8-3U8" firstAttribute="centerY" secondItem="8o4-Q6-QHl" secondAttribute="centerY" id="SXq-ZL-xgt"/>
                             <constraint firstItem="ufZ-Og-CSb" firstAttribute="top" secondItem="f05-eT-gMA" secondAttribute="top" constant="32" id="TzU-eH-zUf"/>
+                            <constraint firstItem="p39-Ni-68i" firstAttribute="leading" secondItem="ufZ-Og-CSb" secondAttribute="leading" id="WN5-2g-ERS"/>
                             <constraint firstItem="R6z-kg-MSF" firstAttribute="leading" secondItem="f05-eT-gMA" secondAttribute="leading" id="cbh-vK-hfJ"/>
                             <constraint firstItem="R6z-kg-MSF" firstAttribute="top" secondItem="p39-Ni-68i" secondAttribute="bottom" constant="16" id="csp-7P-6sb"/>
                             <constraint firstItem="mqJ-U8-3U8" firstAttribute="centerX" secondItem="8o4-Q6-QHl" secondAttribute="centerX" id="dAj-2E-tBE"/>
